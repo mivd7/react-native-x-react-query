@@ -1,26 +1,26 @@
-/* eslint-disable react/react-in-jsx-scope */
-import {FlatList, Text} from 'react-native';
-import {useQuery} from 'react-query';
+import React, { FC } from 'react';
+import { FlatList, Text } from 'react-native';
+import { Header } from 'react-native/Libraries/NewAppScreen';
+import { useQuery } from 'react-query';
 
 const getPosts = () =>
   fetch('https://jsonplaceholder.typicode.com/posts')
     .then(response => response.json())
-    .catch(() => console.error('something went wrong'));
+    .catch(err => console.error(err));
 
-const Posts = () => {
-  const query: Record<string, any> = useQuery('posts', getPosts);
-
+const Posts: FC = () => {
+  const { data } = useQuery('posts', getPosts);
+  const padding = { padding: 24 };
+  console.log('hello!');
   return (
     <>
-      {query.data && (
+      <Header>Hello</Header>
+      {data && (
         <FlatList
-          data={query.data}
-          renderItem={({item}) => (
-            <Text style={{padding: 24}}>{item.title}</Text>
-          )}
+          data={data}
+          renderItem={({ item }) => <Text style={padding}>{item.title}</Text>}
         />
       )}
-      {!query.data && <Text>:( fuuu</Text>}
     </>
   );
 };

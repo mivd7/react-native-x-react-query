@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -9,12 +8,18 @@
  * @format
  */
 
-import React, {type PropsWithChildren} from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-import {Query, QueryClient, QueryClientProvider, useQuery} from 'react-query';
+import React from 'react';
+import { SafeAreaView } from 'react-native';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Posts from './components/Posts';
 
 const queryClient = new QueryClient();
+
+if (__DEV__) {
+  import('react-query-native-devtools').then(({ addPlugin }) => {
+    addPlugin({ queryClient });
+  });
+}
 
 function App() {
   return (
@@ -25,24 +30,5 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
