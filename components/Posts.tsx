@@ -11,10 +11,10 @@ const getPosts = () =>
 const Posts: FC = () => {
   const { data } = useQuery('posts', getPosts);
   const padding = { padding: 24 };
-  console.log('hello!');
+
   return (
     <>
-      <Header>Hello</Header>
+      <Header />
       {data && (
         <FlatList
           data={data}
